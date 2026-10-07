@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مفاجأة ليك يا بابا ❤️</title>
+
+<!-- ===================== PART 1 — paste inside <head> ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth;background:#030818}
+html.bd-lock,html.bd-lock body{overflow:hidden}
+:root{--bd-navy:#0a1533;--bd-blue:#2f8bff;--bd-cyan:#46e0ff;--bd-txt:#e8f2ff;--bd-mut:#9db8de}
+
+/* ---------- global FX canvas + shared ---------- */
+#bd-fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.bd-sec,.bd-pw,.bd-music{font-family:'Cairo','Segoe UI',Tahoma,system-ui,sans-serif}
+.bd-sec{position:relative;overflow:hidden;color:var(--bd-txt);box-sizing:border-box}
+.bd-sec *,.bd-pw *{box-sizing:border-box}
+.bd-rv{opacity:0;transform:translateY(28px);filter:blur(8px);
+  transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1),filter .9s ease;
+  transition-delay:calc(var(--i,0) * .14s)}
+.bd-rv.in{opacity:1;transform:none;filter:none}
+.bd-h2{margin:0;text-align:center;font:700 clamp(2.1rem,6.5vw,3.8rem)/1.5 'Aref Ruqaa',serif;
+  background:linear-gradient(180deg,#fff 5%,#8fd3ff 60%,#3b95ff);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(47,139,255,.55))}
+.bd-bar{width:92px;height:3px;margin:.4rem auto 2.4rem;border-radius:3px;
+  background:linear-gradient(90deg,transparent,var(--bd-cyan),transparent);box-shadow:0 0 14px var(--bd-cyan)}
+@keyframes bd-word{
+  from{opacity:0;transform:translateY(46px) scale(.88);filter:blur(14px) drop-shadow(0 0 0 rgba(47,139,255,0))}
+  to{opacity:1;transform:none;filter:blur(0) drop-shadow(0 0 16px rgba(47,139,255,.75))}}
+@keyframes bd-fade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes bd-beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
+.bd-w{display:inline-block;opacity:0;padding:0 .08em;margin:0 .04em;
+  background:linear-gradient(180deg,#fff 10%,#9fd8ff 55%,#2f8bff);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent}
+.bd-hh{display:inline-block;opacity:0}
+
+/* ---------- password screen ---------- */
+.bd-pw{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:20px;
+  background:radial-gradient(ellipse at 50% 28%,rgba(16,38,92,.84),rgba(3,8,24,.95) 70%);
+  transition:opacity .9s ease,transform 1.1s cubic-bezier(.2,.8,.2,1),visibility 0s linear 1.1s}
+.bd-pw.bd-gone{opacity:0;transform:scale(1.12);visibility:hidden;pointer-events:none}
+.bd-pw-box{position:relative;width:min(92vw,400px);text-align:center;padding:32px 26px 28px;border-radius:26px;
+  background:rgba(10,21,51,.6);border:1px solid rgba(110,180,255,.5);
+  box-shadow:0 0 44px rgba(47,139,255,.35),inset 0 0 30px rgba(47,139,255,.08);
+  animation:bd-fade 1s cubic-bezier(.2,.8,.2,1) both}
+.bd-pw-box::before{content:"";position:absolute;left:50%;top:-30px;width:240px;height:240px;margin-left:-120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(70,224,255,.28),transparent 68%);pointer-events:none;animation:bd-pulse2 4s ease-in-out infinite}
+@keyframes bd-pulse2{0%,100%{transform:scale(.85);opacity:.6}50%{transform:scale(1.15);opacity:1}}
+.bd-lock-ic{position:relative;display:block;margin:0 auto;filter:drop-shadow(0 0 14px rgba(70,224,255,.8));
+  animation:bd-bob 3.4s ease-in-out infinite}
+@keyframes bd-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.bd-sh{transform-box:fill-box;transform-origin:100% 100%;transition:transform .55s cubic-bezier(.3,1.5,.4,1)}
+.bd-pw.ok .bd-sh{transform:translateY(-7px) rotate(-22deg)}
+.bd-pw h1{position:relative;margin:12px 0 4px;font:700 2.2rem/1.5 'Aref Ruqaa',serif;color:#fff;text-shadow:0 0 18px rgba(47,139,255,.8)}
+.bd-pw p{position:relative;margin:0;color:var(--bd-mut);font-size:1rem;line-height:1.8}
+.bd-in{position:relative;width:100%;margin:18px 0 8px;padding:14px 16px;font:600 1.15rem 'Cairo',system-ui,sans-serif;
+  letter-spacing:.22em;text-align:center;color:#fff;background:rgba(3,8,24,.75);
+  border:1px solid rgba(110,180,255,.5);border-radius:14px;outline:none;transition:box-shadow .3s,border-color .3s}
+.bd-in::placeholder{letter-spacing:0;color:#6f8bb8}
+.bd-in:focus{border-color:#9fd3ff;box-shadow:0 0 24px rgba(47,139,255,.75)}
+.bd-err{min-height:1.5em;margin:0 0 8px!important;color:#ff93aa!important;font-size:.95rem!important}
+.bd-btn{position:relative;width:100%;padding:13px 18px;cursor:pointer;color:#fff;font:700 1.1rem 'Cairo',system-ui,sans-serif;
+  border:1px solid rgba(160,215,255,.7);border-radius:14px;background:linear-gradient(135deg,#1f6fe0,#2f8bff 55%,#46c8ff);
+  box-shadow:0 0 22px rgba(47,139,255,.65);transition:transform .25s,box-shadow .25s}
+.bd-btn:hover,.bd-btn:focus-visible{outline:none;transform:translateY(-2px);box-shadow:0 0 34px rgba(70,224,255,.9)}
+.bd-shake{animation:bd-shake .5s ease}
+@keyframes bd-shake{0%,100%{transform:none}20%{transform:translateX(-11px)}40%{transform:translateX(10px)}60%{transform:translateX(-7px)}80%{transform:translateX(5px)}}
+
+/* ---------- music button ---------- */
+.bd-music{position:fixed;left:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:9000;width:54px;height:54px;padding:0;
+  display:grid;place-items:center;cursor:pointer;color:#e8f6ff;border-radius:50%;
+  background:rgba(10,21,51,.78);border:1px solid rgba(110,180,255,.6);box-shadow:0 0 18px rgba(47,139,255,.55);
+  opacity:0;pointer-events:none;transform:scale(.6);transition:opacity .8s ease 1.2s,transform .8s cubic-bezier(.3,1.5,.4,1) 1.2s,box-shadow .3s}
+.bd-on .bd-music{opacity:1;pointer-events:auto;transform:none}
+.bd-music:hover,.bd-music:focus-visible{outline:none;box-shadow:0 0 30px rgba(70,224,255,.95)}
+.bd-music svg{width:24px;height:24px}
+.bd-music .bd-i-pause{display:none}
+.bd-music.playing .bd-i-pause{display:block}
+.bd-music.playing .bd-i-play{display:none}
+.bd-music::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid var(--bd-cyan);opacity:0;pointer-events:none}
+.bd-music.playing::after{animation:bd-mr 2s ease-out infinite}
+@keyframes bd-mr{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+
+/* ---------- hero ---------- */
+.bd-hero{min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:80px 18px}
+.bd-orb{position:absolute;left:50%;top:50%;width:min(95vw,760px);aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(47,139,255,.36),rgba(70,224,255,.12) 42%,transparent 68%);
+  animation:bd-pulse 5.5s ease-in-out infinite}
+@keyframes bd-pulse{0%,100%{transform:translate(-50%,-50%) scale(.9);opacity:.7}50%{transform:translate(-50%,-50%) scale(1.1);opacity:1}}
+.bd-hero-in{position:relative}
+.bd-title{margin:0;font:700 clamp(2.6rem,10.5vw,7rem)/1.5 'Aref Ruqaa',serif}
+.bd-l{display:block}
+.bd-on .bd-hero .bd-w{animation:bd-word 1.1s cubic-bezier(.2,.8,.2,1) calc(.5s + var(--i) * .22s) both}
+.bd-on .bd-hero .bd-hh{animation:bd-word 1.1s cubic-bezier(.2,.8,.2,1) 1.9s both,bd-beat 1.5s ease-in-out 3.2s infinite}
+.bd-sub{margin:1.2rem 0 0;opacity:0;color:var(--bd-mut);font-size:clamp(1.05rem,2.8vw,1.5rem);line-height:1.9}
+.bd-on .bd-sub{animation:bd-fade 1.4s ease 2.5s both}
+.bd-cue{position:absolute;left:50%;bottom:26px;width:44px;height:44px;margin-left:-22px;display:grid;place-items:center;opacity:0}
+.bd-on .bd-cue{animation:bd-fade 1s ease 3.2s both}
+.bd-cue i{width:14px;height:14px;border-right:3px solid var(--bd-cyan);border-bottom:3px solid var(--bd-cyan);
+  transform:rotate(45deg);animation:bd-dn 1.8s ease-in-out infinite;filter:drop-shadow(0 0 6px var(--bd-cyan))}
+@keyframes bd-dn{0%,100%{transform:translateY(-4px) rotate(45deg)}50%{transform:translateY(7px) rotate(45deg)}}
+
+/* ---------- message ---------- */
+.bd-msg{padding:clamp(70px,12vw,140px) 18px}
+.bd-card{position:relative;overflow:hidden;max-width:760px;margin:0 auto;padding:clamp(26px,5vw,56px);border-radius:26px;
+  background:linear-gradient(160deg,rgba(14,32,78,.72),rgba(6,14,38,.78));border:1px solid rgba(110,180,255,.5);
+  box-shadow:0 0 40px rgba(47,139,255,.28),0 30px 60px rgba(0,0,0,.45)}
+.bd-card::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(124,196,255,.14),transparent);animation:bd-sheen 7s ease-in-out infinite}
+@keyframes bd-sheen{0%{transform:translateX(0)}60%,100%{transform:translateX(420%)}}
+.bd-card p{position:relative;margin:0 0 1.1em;font-size:clamp(1.08rem,2.9vw,1.38rem);line-height:2.1}
+.bd-card .bd-sign{margin:1.4rem 0 0;text-align:end;color:var(--bd-cyan);font:700 clamp(1.6rem,4vw,2.1rem)/1.5 'Aref Ruqaa',serif;
+  text-shadow:0 0 16px rgba(70,224,255,.6)}
+
+/* ---------- timeline ---------- */
+.bd-tlw{padding:clamp(70px,12vw,140px) 18px}
+.bd-tl{position:relative;max-width:1000px;margin:0 auto;padding:6px 0}
+.bd-line{position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;border-radius:3px;background:rgba(47,139,255,.18)}
+.bd-line i{position:absolute;inset:0;border-radius:3px;background:linear-gradient(180deg,var(--bd-cyan),var(--bd-blue));
+  box-shadow:0 0 14px var(--bd-cyan);transform-origin:top;transform:scaleY(var(--p,0));will-change:transform}
+article.bd-ti{position:relative;width:50%;margin-bottom:clamp(26px,5vw,56px);opacity:0;transform:translateX(var(--tx,60px));
+  transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+article.bd-ti:nth-of-type(odd){--tx:70px;padding-inline-end:clamp(28px,5vw,58px)}
+article.bd-ti:nth-of-type(even){--tx:-70px;margin-inline-start:50%;padding-inline-start:clamp(28px,5vw,58px)}
+article.bd-ti.in{opacity:1;transform:none}
+.bd-dot{position:absolute;top:24px;width:18px;height:18px;border-radius:50%;background:#06122e;border:3px solid var(--bd-blue);
+  transition:transform .7s cubic-bezier(.3,1.6,.4,1) .25s,background .4s .25s,box-shadow .4s .25s,border-color .4s .25s}
+article.bd-ti:nth-of-type(odd) .bd-dot{inset-inline-end:-9px}
+article.bd-ti:nth-of-type(even) .bd-dot{inset-inline-start:-9px}
+.bd-ti.in .bd-dot{transform:scale(1.2);background:var(--bd-cyan);border-color:#d6f1ff;box-shadow:0 0 16px 4px rgba(70,224,255,.7)}
+.bd-tc{padding:20px 22px;border-radius:18px;background:rgba(10,21,51,.68);border:1px solid rgba(110,180,255,.42);
+  box-shadow:0 0 22px rgba(47,139,255,.2);transition:transform .4s ease,box-shadow .4s ease,border-color .4s}
+.bd-tc:hover{transform:translateY(-5px);border-color:#8fd0ff;box-shadow:0 0 34px rgba(47,139,255,.55)}
+.bd-tc time{display:block;color:var(--bd-cyan);font-weight:700;font-size:.92rem}
+.bd-tc h3{margin:.15em 0 .3em;font:700 clamp(1.5rem,3.6vw,1.9rem)/1.5 'Aref Ruqaa',serif;color:#fff}
+.bd-tc p{margin:0;color:var(--bd-mut);line-height:1.95;font-size:1.02rem}
+
+/* ---------- final surprise: countdown -> cake -> blow -> heart -> text ---------- */
+.bd-final{min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:70px 18px}
+.bd-final::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 50%,rgba(200,236,255,.95),rgba(47,139,255,.5) 40%,transparent 70%)}
+.bd-final::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;background:#02050f;transition:opacity .9s ease}
+.bd-s-dark::after{opacity:.94}
+.bd-boom::after{transition-duration:.3s}
+.bd-boom::before{animation:bd-flash 1.5s ease-out both}
+@keyframes bd-flash{0%{opacity:0}14%{opacity:1}100%{opacity:0}}
+#bd-art{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.bd-rings{position:absolute;inset:0;pointer-events:none}
+.bd-rings i{position:absolute;left:50%;top:50%;width:40vmin;height:40vmin;margin:-20vmin 0 0 -20vmin;border-radius:50%;
+  border:2px solid rgba(70,224,255,.65);box-shadow:0 0 22px rgba(47,139,255,.6);opacity:0}
+.bd-boom .bd-rings i{animation:bd-ring 3.8s ease-out calc(var(--i) * 1.2s) infinite}
+@keyframes bd-ring{0%{transform:scale(.2);opacity:.9}100%{transform:scale(2.7);opacity:0}}
+.bd-hearts{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bd-hearts i{position:absolute;bottom:-40px;left:var(--x);font-style:normal;font-size:var(--s);color:#ff5f86;opacity:0;
+  text-shadow:0 0 12px rgba(255,95,134,.7)}
+.bd-boom .bd-hearts i{animation:bd-up var(--t) linear var(--dl) infinite}
+@keyframes bd-up{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}100%{transform:translate(var(--dx),-115vh);opacity:0}}
+
+.bd-fin-in{position:relative;z-index:1;display:grid;place-items:center;width:100%}
+.bd-fin-in>*{grid-area:1/1}
+.bd-cta{padding:16px 34px;cursor:pointer;color:#fff;font:700 clamp(1.1rem,3.4vw,1.45rem) 'Cairo',system-ui,sans-serif;
+  border:1px solid rgba(170,220,255,.8);border-radius:60px;background:linear-gradient(135deg,#1f6fe0,#2f8bff 55%,#46c8ff);
+  box-shadow:0 0 30px rgba(47,139,255,.8),0 0 70px rgba(47,139,255,.35);transition:opacity .5s,transform .5s,box-shadow .3s}
+.bd-cta:hover,.bd-cta:focus-visible{outline:none;box-shadow:0 0 40px rgba(70,224,255,.95),0 0 90px rgba(47,139,255,.5)}
+.bd-gift{animation:bd-gp 2.2s ease-in-out infinite}
+@keyframes bd-gp{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.bd-run .bd-gift{animation:none;opacity:0;visibility:hidden;transform:scale(.4);pointer-events:none}
+
+/* stage switching */
+.bd-count,.bd-cake,.bd-fin-wrap{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
+.bd-s-count .bd-count,.bd-s-cake .bd-cake,.bd-show .bd-fin-wrap{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .5s ease}
+
+/* countdown */
+.bd-count span{display:block;opacity:0;font:700 clamp(7rem,32vw,17rem)/1.2 'Aref Ruqaa',serif;color:#fff;
+  text-shadow:0 0 30px #46e0ff,0 0 80px #2f8bff}
+.bd-count span.go{animation:bd-num .95s ease-out both}
+@keyframes bd-num{0%{transform:scale(2.4);opacity:0;filter:blur(12px)}30%{transform:scale(1);opacity:1;filter:blur(0)}75%{opacity:1}100%{transform:scale(.7);opacity:0}}
+
+/* cake */
+.bd-cake svg{display:block;margin:0 auto;width:min(76vw,330px);height:auto;overflow:visible;filter:drop-shadow(0 0 22px rgba(47,139,255,.55))}
+.bd-s-cake .bd-cake svg{animation:bd-rise 1.3s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes bd-rise{from{transform:translateY(70px) scale(.7);opacity:0}to{transform:none;opacity:1}}
+.bd-lid{transform-box:fill-box;transform-origin:0% 100%}
+.bd-beam{opacity:0;transform-box:fill-box;transform-origin:50% 100%}
+.bd-box{animation:bd-bob 3.2s ease-in-out infinite}
+.bd-out .bd-box{animation:none}
+.bd-out .bd-lid{animation:bd-lid 1.1s cubic-bezier(.3,1.5,.4,1) forwards}
+@keyframes bd-lid{from{transform:none}to{transform:translate(-34px,-70px) rotate(-30deg)}}
+.bd-out .bd-beam{animation:bd-beam 1.5s ease .35s forwards}
+@keyframes bd-beam{from{opacity:0;transform:scaleY(.15)}to{opacity:1;transform:none}}
+.bd-wish{margin:.6rem 0 1rem;opacity:0;font:700 clamp(1.7rem,5vw,2.4rem)/1.5 'Aref Ruqaa',serif;color:#fff;text-shadow:0 0 18px rgba(70,224,255,.8)}
+.bd-blow{opacity:0}
+.bd-s-cake .bd-wish{animation:bd-fade 1s ease 1.2s both}
+.bd-s-cake .bd-blow{animation:bd-fade 1s ease 2s both}
+/* photos flying out of the gift */
+.bd-photos{position:absolute;inset:0;z-index:1;pointer-events:none;transition:opacity 1s ease}
+.bd-photos.bd-fadeout{opacity:0}
+.bd-ph{position:absolute;opacity:0;overflow:hidden;border-radius:12px;border:1px solid rgba(124,196,255,.75);
+  box-shadow:0 0 22px rgba(47,139,255,.65),0 10px 24px rgba(0,0,0,.5);will-change:transform,opacity}
+.bd-ph img{display:block;width:100%;height:100%;object-fit:cover}
+/* final headline */
+.bd-fin{margin:0;font:700 clamp(2.4rem,9vw,5.8rem)/1.55 'Aref Ruqaa',serif}
+.bd-show .bd-w{animation:bd-word 1.2s cubic-bezier(.2,.8,.2,1) calc(.1s + var(--i) * .22s) both}
+.bd-show .bd-hh{animation:bd-word 1.2s cubic-bezier(.2,.8,.2,1) 1.5s both,bd-beat 1.4s ease-in-out 2.9s infinite}
+.bd-fsub{margin:1rem 0 0;opacity:0;color:var(--bd-mut);font-size:clamp(1.05rem,2.8vw,1.45rem);line-height:1.9}
+.bd-show .bd-fsub{animation:bd-fade 1.4s ease 1.8s both}
+.bd-replay{margin-top:1.4rem;padding:9px 22px;cursor:pointer;opacity:0;color:var(--bd-cyan);font:600 1rem 'Cairo',system-ui,sans-serif;
+  background:transparent;border:1px solid rgba(110,180,255,.5);border-radius:40px;transition:box-shadow .3s}
+.bd-show .bd-replay{animation:bd-fade 1s ease 4.5s both}
+.bd-replay:hover,.bd-replay:focus-visible{outline:none;box-shadow:0 0 20px rgba(70,224,255,.7)}
+
+/* ---------- mobile ---------- */
+@media (max-width:720px){
+  .bd-line{left:auto;right:16px;margin:0}
+  article.bd-ti,article.bd-ti:nth-of-type(odd),article.bd-ti:nth-of-type(even){
+    width:100%;margin-inline-start:0;padding-inline:52px 0;--tx:40px}
+  article.bd-ti:nth-of-type(odd) .bd-dot,article.bd-ti:nth-of-type(even) .bd-dot{inset-inline:8px auto}
+  .bd-music{width:48px;height:48px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .bd-w,.bd-hh,.bd-sub,.bd-cue,.bd-fsub{opacity:1!important;animation:none!important;transform:none!important;filter:none!important}
+  .bd-rv,article.bd-ti{opacity:1;transform:none;filter:none;transition:none}
+  .bd-orb,.bd-card::before,.bd-gift,.bd-lock-ic,.bd-pw-box::before{animation:none}
+  .bd-rings,.bd-hearts,#bd-art{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===================== PART 2 — paste right after <body> ===================== -->
+<canvas id="bd-fx" aria-hidden="true"></canvas>
+<audio id="bd-audio" src="Spring-Flowers(chosic.com).mp3" loop preload="none"></audio>
+
+<button class="bd-music" id="bd-music" type="button" aria-label="تشغيل / إيقاف الموسيقى">
+  <svg class="bd-i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+  <svg class="bd-i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
+</button>
+
+<div class="bd-pw" id="bd-pw" dir="rtl">
+  <div class="bd-pw-box">
+    <svg class="bd-lock-ic" viewBox="0 0 64 64" width="76" height="76" aria-hidden="true">
+      <path class="bd-sh" d="M20 28V20a12 12 0 0 1 24 0v8" fill="none" stroke="#7cc4ff" stroke-width="5" stroke-linecap="round"/>
+      <rect x="12" y="28" width="40" height="28" rx="7" fill="#0f2a63" stroke="#46e0ff" stroke-width="3"/>
+      <circle cx="32" cy="42" r="4" fill="#46e0ff"/>
+    </svg>
+    <h1>مفاجأة خاصة لبابا</h1>
+    <p>اكتب كلمة السر عشان تفتح الهدية</p>
+    <form id="bd-form" autocomplete="off">
+      <input class="bd-in" id="bd-in" type="password" dir="ltr" placeholder="كلمة السر" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="كلمة السر">
+      <p class="bd-err" id="bd-err" aria-live="polite"></p>
+      <button class="bd-btn" type="submit">دخول</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== PART 3 — hero + message + timeline (before the gallery) ===================== -->
+<section class="bd-sec bd-hero" id="bd-hero" dir="rtl">
+  <div class="bd-orb"></div>
+  <div class="bd-hero-in">
+    <h1 class="bd-title">
+      <span class="bd-l"><span class="bd-w" style="--i:0">مفاجأة</span> <span class="bd-w" style="--i:1">من</span> <span class="bd-w" style="--i:2">قلبي</span></span>
+      <span class="bd-l"><span class="bd-w" style="--i:3">ليك</span> <span class="bd-w" style="--i:4">يا</span> <span class="bd-w" style="--i:5">بابا</span> <span class="bd-hh">❤️</span></span>
+    </h1>
+    <p class="bd-sub">من غير مناسبة ولا سبب… بس لأنك تستاهل</p>
+  </div>
+  <a class="bd-cue" href="#bd-msg" aria-label="انزل لتحت"><i></i></a>
+</section>
+
+<section class="bd-sec bd-msg" id="bd-msg" dir="rtl">
+  <div class="bd-card">
+    <div class="bd-rv"><h2 class="bd-h2">رسالة لأبويا الغالي</h2></div>
+    <div class="bd-bar bd-rv" style="--i:1"></div>
+    <p class="bd-rv" style="--i:1">يا بابا، النهاردة مفيش عيد ميلاد ولا مناسبة… بس قلت مفيش داعي أستنى مناسبة عشان أقولك كلام بيتأجل كل يوم.</p>
+    <p class="bd-rv">إنت اللي تعبت علشانا من غير ما تشتكي، وفضلت واقف زي الجبل، وكل مرة الدنيا كانت بتضيق كنت إنت الأمان اللي بنرجعله.</p>
+    <p class="bd-rv">علّمتني إن الرجولة موقف مش كلام، وإن التعب ليه طعم حلو لما يبقى لأجل ناس بنحبهم.</p>
+    <p class="bd-rv">ممكن مقولش كلمة شكرًا كفاية، بس كل اللي أنا فيه منك وبسببك. ربنا يخليك ليا، ويديك الصحة وراحة البال، ويجعل كل خطوة بتخطيها خير.</p>
+    <p class="bd-sign bd-rv">— ابنك ❤️</p>
+  </div>
+</section>
+
+<section class="bd-sec bd-tlw" id="bd-tl" dir="rtl">
+  <div class="bd-rv"><h2 class="bd-h2">ذكرياتنا</h2></div>
+  <div class="bd-bar bd-rv" style="--i:1"></div>
+  <!-- عدّل النصوص دي بذكرياتكم الحقيقية (ضيف أو احذف أي <article> براحتك) -->
+  <div class="bd-tl">
+    <div class="bd-line"><i></i></div>
+    <article class="bd-ti"><span class="bd-dot"></span><div class="bd-tc"><time>من زمان</time><h3>أول قدوة ليا</h3><p>من وأنا صغير وإنت المثل الأعلى اللي بحاول أبقى زيه.</p></div></article>
+    <article class="bd-ti"><span class="bd-dot"></span><div class="bd-tc"><time>كل يوم</time><h3>تعبك علشانا</h3><p>شغل وتعب ومسؤولية، وعمرك ما قلت لأ لحد فينا.</p></div></article>
+    <article class="bd-ti"><span class="bd-dot"></span><div class="bd-tc"><time>وقت الشدة</time><h3>كنت الضهر</h3><p>كل مرة الدنيا كانت بتضيق، كنت بلاقيك واقف جنبي من غير ما أطلب.</p></div></article>
+    <article class="bd-ti"><span class="bd-dot"></span><div class="bd-tc"><time>نصايحك</time><h3>كلمة منك بتفرق</h3><p>كل نصيحة منك كانت بتبان تقيلة وقتها… وبعدين أكتشف إنك كنت دايمًا صح.</p></div></article>
+    <article class="bd-ti"><span class="bd-dot"></span><div class="bd-tc"><time>النهاردة</time><h3>من غير مناسبة</h3><p>ولا عيد ولا حاجة، بس حبيت أقولك إنك غالي أوي. شكرًا يا بابا.</p></div></article>
+  </div>
+</section>
+
+
+
+<!-- ===================== PART 4 — final surprise (after the gallery) ===================== -->
+<section class="bd-sec bd-final" id="bd-final" dir="rtl">
+  <div class="bd-rings"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i></div>
+  <div class="bd-hearts" id="bd-hearts"></div>
+  <canvas id="bd-art" aria-hidden="true"></canvas>
+  <div class="bd-photos" id="bd-photos" aria-hidden="true"></div>
+  <div class="bd-fin-in">
+    <button class="bd-cta bd-gift" id="bd-gift" type="button">افتح المفاجأة 🎁</button>
+
+    <div class="bd-count" id="bd-count" aria-live="assertive"><span></span></div>
+
+    <div class="bd-cake">
+      <svg viewBox="0 0 300 290" aria-hidden="true">
+        <defs>
+          <linearGradient id="bdbm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#bff3ff" stop-opacity=".95"/><stop offset=".5" stop-color="#46e0ff" stop-opacity=".45"/><stop offset="1" stop-color="#2f8bff" stop-opacity="0"/></linearGradient>
+        </defs>
+        <ellipse cx="150" cy="268" rx="118" ry="13" fill="#0b1d4a" stroke="#46e0ff" stroke-width="2"/>
+        <polygon class="bd-beam" points="104,140 196,140 262,-30 38,-30" fill="url(#bdbm)"/>
+        <g class="bd-box">
+          <rect x="62" y="136" width="176" height="126" rx="10" fill="#123a8c" stroke="#7cc4ff" stroke-width="2"/>
+          <rect x="138" y="136" width="24" height="126" fill="#46e0ff" opacity=".9"/>
+          <circle cx="92" cy="170" r="3" fill="#fff"/><circle cx="208" cy="196" r="3" fill="#ff7aa2"/><circle cx="100" cy="228" r="3" fill="#46e0ff"/><circle cx="204" cy="150" r="3" fill="#fff"/>
+          <g class="bd-lid">
+            <rect x="50" y="100" width="200" height="40" rx="10" fill="#1b57c4" stroke="#bfe3ff" stroke-width="2"/>
+            <rect x="138" y="100" width="24" height="40" fill="#8fe9ff"/>
+            <ellipse cx="124" cy="88" rx="26" ry="14" transform="rotate(-18 124 88)" fill="none" stroke="#46e0ff" stroke-width="6"/>
+            <ellipse cx="176" cy="88" rx="26" ry="14" transform="rotate(18 176 88)" fill="none" stroke="#46e0ff" stroke-width="6"/>
+            <circle cx="150" cy="96" r="9" fill="#8fe9ff" stroke="#e8f6ff" stroke-width="2"/>
+          </g>
+        </g>
+      </svg>
+      <p class="bd-wish">جوه الصندوق ذكريات حلوة ليك ✨</p>
+      <button class="bd-cta bd-blow" id="bd-blow" type="button">افتح الهدية 🎁</button>
+    </div>
+
+    <div class="bd-fin-wrap">
+      <h2 class="bd-fin">
+        <span class="bd-l"><span class="bd-w" style="--i:0">شكرًا</span> <span class="bd-w" style="--i:1">يا</span> <span class="bd-w" style="--i:2">بابا</span></span>
+        <span class="bd-l"><span class="bd-w" style="--i:3">ربنا</span> <span class="bd-w" style="--i:4">يخليك</span> <span class="bd-w" style="--i:5">ليا</span> <span class="bd-hh">❤️</span></span>
+      </h2>
+      <p class="bd-fsub">بحبك يا بابا… ومش محتاج مناسبة علشان أقولها</p>
+      <button class="bd-replay" id="bd-replay" type="button">شغّلها تاني 🔁</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PART 5 — script (before </body>) ===================== -->
+<script>
+(function () {
+  'use strict';
+  var D = document, R = D.documentElement;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var PASS = 'khaled';
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  R.classList.add('bd-lock'); window.scrollTo(0, 0);
+
+  /* ---------- Global canvas: stars, dust, fireworks (one rAF loop) ---------- */
+  var cv = D.getElementById('bd-fx'), cx = cv.getContext('2d');
+  var W = 0, VH = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  var stars = [], dust = [], sparks = [], last = 0;
+  var COLORS = ['#ffffff', '#7cc4ff', '#46e0ff', '#2f8bff', '#ff7aa2'];
+
+  function seed() {
+    var ns = W < 700 ? 60 : 110, nd = W < 700 ? 14 : 26, i;
+    stars = []; dust = [];
+    for (i = 0; i < ns; i++) stars.push({ x: Math.random() * W, y: Math.random() * VH, r: .4 + Math.random() * 1.1, s: .4 + Math.random() * 1.6, p: Math.random() * 6.28 });
+    for (i = 0; i < nd; i++) dust.push({ x: Math.random() * W, y: Math.random() * VH, r: 1.3 + Math.random() * 1.8, s: .4 + Math.random() * 1.2, p: Math.random() * 6.28, vx: (Math.random() - .5) * .25, vy: -.1 - Math.random() * .3 });
+  }
+  function size() {
+    var w = innerWidth, h = innerHeight;
+    if (w === W && Math.abs(h - VH) < 120) return; // ignore mobile address-bar jitter
+    W = w; VH = h; cv.width = W * dpr; cv.height = VH * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); seed();
+    if (reduce) frame(0);
+  }
+  function burst(x, y, n) {
+    if (reduce || sparks.length > 450) return;
+    for (var i = 0; i < n; i++) {
+      var a = Math.random() * 6.2832, v = 1.2 + Math.random() * 3.6, l = 55 + Math.random() * 40;
+      sparks.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, r: .9 + Math.random() * 1.5, l: l, m: l, c: COLORS[(Math.random() * COLORS.length) | 0] });
+    }
+  }
+  function frame(t) {
+    var k = last ? Math.min((t - last) / 16.67, 2.5) : 1, i, p; last = t; t /= 1000;
+    cx.clearRect(0, 0, W, VH);
+    cx.fillStyle = '#cfe6ff';
+    for (i = 0; i < stars.length; i++) {
+      p = stars[i]; cx.globalAlpha = .25 + .75 * Math.abs(Math.sin(t * p.s + p.p));
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.2832); cx.fill();
+    }
+    for (i = 0; i < dust.length; i++) {
+      p = dust[i]; if (!reduce) { p.x += p.vx * k; p.y += p.vy * k; }
+      if (p.y < -8) { p.y = VH + 8; p.x = Math.random() * W; }
+      if (p.x < -8) p.x = W + 8; else if (p.x > W + 8) p.x = -8;
+    }
+    cx.fillStyle = '#2f8bff';
+    for (i = 0; i < dust.length; i++) {
+      p = dust[i]; cx.globalAlpha = (.3 + .7 * Math.abs(Math.sin(t * p.s + p.p))) * .16;
+      cx.beginPath(); cx.arc(p.x, p.y, p.r * 3.4, 0, 6.2832); cx.fill();
+    }
+    cx.fillStyle = '#9fdcff';
+    for (i = 0; i < dust.length; i++) {
+      p = dust[i]; cx.globalAlpha = (.3 + .7 * Math.abs(Math.sin(t * p.s + p.p))) * .85;
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.2832); cx.fill();
+    }
+    for (i = sparks.length - 1; i >= 0; i--) {
+      p = sparks[i]; p.x += p.vx * k; p.y += p.vy * k; p.vy += .035 * k; p.vx *= .985; p.vy *= .985; p.l -= k;
+      if (p.l <= 0) { sparks[i] = sparks[sparks.length - 1]; sparks.pop(); continue; }
+      cx.globalAlpha = p.l / p.m; cx.fillStyle = p.c;
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.2832); cx.fill();
+    }
+    cx.globalAlpha = 1;
+  }
+  function loop(t) { frame(t); requestAnimationFrame(loop); }
+  size(); window.addEventListener('resize', size);
+  if (!reduce) requestAnimationFrame(loop);
+
+  /* ---------- Music ---------- */
+  var au = D.getElementById('bd-audio'), mb = D.getElementById('bd-music');
+  function fadeIn() {
+    var v = 0, iv = setInterval(function () { v += .03; if (v >= .6) { v = .6; clearInterval(iv); } au.volume = v; }, 120);
+  }
+  function startMusic() {
+    au.volume = 0;
+    var pr = au.play();
+    if (pr && pr.then) pr.then(fadeIn).catch(function () { au.volume = .6; });
+  }
+  au.addEventListener('play', function () { mb.classList.add('playing'); });
+  au.addEventListener('pause', function () { mb.classList.remove('playing'); });
+  mb.addEventListener('click', function () {
+    if (au.paused) { au.volume = .6; var pr = au.play(); if (pr && pr.catch) pr.catch(function () {}); } else au.pause();
+  });
+
+  /* ---------- Password screen ---------- */
+  var pw = D.getElementById('bd-pw'), form = D.getElementById('bd-form'),
+      inp = D.getElementById('bd-in'), err = D.getElementById('bd-err'), opened = false;
+  setTimeout(function () { try { inp.focus({ preventScroll: true }); } catch (e) {} }, 700);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); if (opened) return;
+    if (inp.value.trim().toLowerCase() === PASS) { unlock(); return; }
+    err.textContent = 'كلمة السر مش صح… جرب تاني';
+    form.classList.remove('bd-shake'); void form.offsetWidth; form.classList.add('bd-shake');
+    inp.select();
+  });
+  function unlock() {
+    opened = true; err.textContent = ''; inp.blur();
+    pw.classList.add('ok');
+    startMusic(); // inside the user gesture so browsers allow it
+    burst(W / 2, VH / 2, 80); setTimeout(function () { burst(W * .3, VH * .4, 50); burst(W * .7, VH * .4, 50); }, 250);
+    setTimeout(function () {
+      pw.classList.add('bd-gone'); R.classList.remove('bd-lock'); R.classList.add('bd-on'); window.scrollTo(0, 0);
+    }, 700);
+    setTimeout(function () { pw.style.display = 'none'; }, 2000);
+  }
+
+  /* ---------- Scroll reveals ---------- */
+  var rv = D.querySelectorAll('.bd-rv, .bd-ti');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .15, rootMargin: '0px 0px -8% 0px' });
+    for (var i = 0; i < rv.length; i++) io.observe(rv[i]);
+  } else for (var j = 0; j < rv.length; j++) rv[j].classList.add('in');
+
+  /* ---------- Timeline line fill ---------- */
+  var tl = D.querySelector('.bd-tl'), tick = false;
+  function prog() {
+    tick = false; var r = tl.getBoundingClientRect();
+    var p = (innerHeight * .65 - r.top) / r.height;
+    tl.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(3));
+  }
+  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(prog); } }, { passive: true });
+  addEventListener('resize', prog); prog();
+
+  /* ---------- Final surprise: countdown -> cake -> blow -> heart -> text ---------- */
+  var fin = D.getElementById('bd-final'), gift = D.getElementById('bd-gift'), blow = D.getElementById('bd-blow'),
+      rep = D.getElementById('bd-replay'), cnt = D.getElementById('bd-count').firstElementChild,
+      hearts = D.getElementById('bd-hearts'), art = D.getElementById('bd-art'), ax = art.getContext('2d'),
+      AW = 0, AH = 0, P = [], aOn = false, aA = 1, aFading = false, aLast = 0, heartPh = false,
+      boomed = false, finVis = false, TM = [], IV = 0, AR = ['', '١', '٢', '٣'],
+      adpr = Math.min(window.devicePixelRatio || 1, 1.5),
+      PAL = ['#ff5f86', '#ff8fab', '#ff3d71', '#ffd0dc', '#ffffff', '#cfe6ff', '#9fdcff', '#46e0ff', '#2f8bff']; // 0-3 heart, 4-8 text
+
+  function T(f, d) { TM.push(setTimeout(f, d)); }
+  function rnd() { burst(W * (.12 + Math.random() * .76), VH * (.14 + Math.random() * .46), W < 700 ? 55 : 85); }
+
+  for (var h = 0; h < 14; h++) {
+    var s = D.createElement('i');
+    s.textContent = '♥';
+    s.style.cssText = '--x:' + (4 + h * 6.8 + Math.random() * 3).toFixed(1) + '%;--s:' + (14 + Math.random() * 22).toFixed(0) +
+      'px;--t:' + (7 + Math.random() * 6).toFixed(1) + 's;--dl:' + (1 + Math.random() * 6).toFixed(1) + 's;--dx:' + ((Math.random() - .5) * 90).toFixed(0) + 'px';
+    hearts.appendChild(s);
+  }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { finVis = es[0].isIntersecting; }, { threshold: .3 }).observe(fin);
+
+  function artSize() {
+    AW = fin.clientWidth; AH = fin.clientHeight;
+    art.width = AW * adpr; art.height = AH * adpr; ax.setTransform(adpr, 0, 0, adpr, 0, 0);
+  }
+  function heartPts(n) {
+    var cx = AW / 2, cy = AH / 2 - AH * .02, s = Math.min(AW * .8 / 32, AH * .6 / 29, 22), pts = [], i, t, r, x, y;
+    for (i = 0; i < n; i++) {
+      t = Math.random() * 6.2832; r = Math.random() < .6 ? 1 - Math.random() * .05 : Math.sqrt(Math.random());
+      x = 16 * Math.pow(Math.sin(t), 3);
+      y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+      pts.push([cx + x * s * r, cy - (y + 2.5) * s * r]);
+    }
+    return pts;
+  }
+  function textPts() {
+    var oc = D.createElement('canvas'); oc.width = AW; oc.height = AH;
+    var o = oc.getContext('2d'), lines = ['شكرًا يا بابا', 'ربنا يخليك ليا'], fs = Math.min(AH * .17, AW * .2, 170), m = 0;
+    o.direction = 'rtl'; o.textAlign = 'center'; o.textBaseline = 'middle'; o.fillStyle = '#fff';
+    function fit() { o.font = '700 ' + fs + 'px "Aref Ruqaa",serif'; m = 0; lines.forEach(function (l) { m = Math.max(m, o.measureText(l).width); }); }
+    fit(); if (m > AW * .88) { fs *= AW * .88 / m; fit(); }
+    lines.forEach(function (l, i) { o.fillText(l, AW / 2, AH / 2 + (i - .5) * fs * 1.45 - AH * .03); });
+    var d = o.getImageData(0, 0, AW, AH).data, pts = [], step = AW < 700 ? 3 : 4, x, y;
+    for (y = 0; y < AH; y += step) for (x = 0; x < AW; x += step) if (d[(y * AW + x) * 4 + 3] > 120) pts.push([x, y]);
+    return pts;
+  }
+  function morph() {
+    var tp = textPts(), L = tp.length, n = P.length, i, j, q, p, now = performance.now();
+    if (!L) return;
+    for (i = L - 1; i > 0; i--) { j = (Math.random() * (i + 1)) | 0; q = tp[i]; tp[i] = tp[j]; tp[j] = q; }
+    for (i = 0; i < n; i++) {
+      p = P[i]; q = tp[i % L];
+      p.nx = q[0] + (L < n ? (Math.random() - .5) * 2 : 0); p.ny = q[1] + (L < n ? (Math.random() - .5) * 2 : 0);
+      p.nci = 4 + ((Math.random() * 5) | 0); p.sw = now + Math.max(0, p.x / AW) * 500;
+    }
+    heartPh = false; rnd(); rnd();
+  }
+  function aLoop(t) {
+    if (!aOn) return;
+    var k = aLast ? Math.min((t - aLast) / 16.67, 2.5) : 1; aLast = t;
+    var damp = Math.pow(.9, k), pu = heartPh ? 1 + .04 * Math.sin(t / 230) : 1,
+        cx = AW / 2, cy = AH / 2 - AH * .02, i, p, ci, tx, ty, sz;
+    for (i = 0; i < P.length; i++) {
+      p = P[i]; tx = p.tx; ty = p.ty;
+      if (t >= p.sw) { tx = p.nx; ty = p.ny; p.ci = p.nci; }
+      else if (heartPh) { tx = cx + (tx - cx) * pu; ty = cy + (ty - cy) * pu; }
+      p.vx = (p.vx + (tx - p.x) * .02 * k) * damp; p.vy = (p.vy + (ty - p.y) * .02 * k) * damp;
+      p.x += p.vx * k; p.y += p.vy * k;
+    }
+    if (aFading) aA -= .011 * k;
+    ax.clearRect(0, 0, AW, AH);
+    if (aA <= 0) { aOn = false; return; }
+    ax.globalCompositeOperation = 'lighter'; ax.globalAlpha = aA;
+    for (ci = 0; ci < PAL.length; ci++) {
+      ax.fillStyle = PAL[ci]; ax.beginPath();
+      for (i = 0; i < P.length; i++) {
+        p = P[i]; if (p.ci !== ci) continue;
+        sz = p.s * (.8 + .3 * Math.sin(t / 190 + p.ph)); ax.rect(p.x - sz / 2, p.y - sz / 2, sz, sz);
+      }
+      ax.fill();
+    }
+    ax.globalCompositeOperation = 'source-over'; ax.globalAlpha = 1;
+    requestAnimationFrame(aLoop);
+  }
+  function startArt() {
+    artSize();
+    var n = AW < 700 ? 900 : 1500, hp = heartPts(n), cx = AW / 2, cy = AH / 2, i, a, v;
+    P = [];
+    for (i = 0; i < n; i++) {
+      a = Math.random() * 6.2832; v = 3 + Math.random() * 15;
+      P.push({ x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, tx: hp[i][0], ty: hp[i][1], nx: 0, ny: 0,
+        sw: 1e15, ci: (Math.random() * 4) | 0, nci: 4, s: 1.7 + Math.random() * 1.8, ph: Math.random() * 6.28 });
+    }
+    heartPh = true; aOn = true; aA = 1; aFading = false; aLast = 0;
+    requestAnimationFrame(aLoop);
+    T(morph, 3000);
+    for (i = 0; i < 6; i++) T(rnd, 5600 + i * 220);
+    T(function () { fin.classList.add('bd-show'); }, 5800);
+    T(function () { aFading = true; }, 6200);
+  }
+  function boomNow() {
+    fin.classList.remove('bd-s-dark'); fin.classList.add('bd-boom');
+    [0, 250, 550, 900, 1300, 1750, 2200].forEach(function (d) { T(rnd, d); });
+    burst(W / 2, VH / 2, 120);
+    startArt();
+    IV = setInterval(function () { if (finVis && !D.hidden) rnd(); }, 2600);
+  }
+  function play() {
+    if (boomed) return; boomed = true; fin.classList.add('bd-run');
+    if (reduce) { fin.classList.add('bd-show'); return; }
+    if (D.fonts && D.fonts.load) D.fonts.load('700 100px "Aref Ruqaa"', 'كل سنة وإنت');
+    fin.classList.add('bd-s-count');
+    var n = 3;
+    (function tick() {
+      if (n > 0) {
+        cnt.textContent = AR[n]; cnt.classList.remove('go'); void cnt.offsetWidth; cnt.classList.add('go');
+        burst(W / 2, VH / 2, 28); n--; T(tick, 950);
+      } else { fin.classList.remove('bd-s-count'); fin.classList.add('bd-s-cake'); }
+    })();
+  }
+  /* ---------- photos: auto-detect images/Photo1..N (jpeg/jpg/png/webp, any case of 'Photo') ---------- */
+  var PH = [], MAXP = 20, PFX = ['Photo', 'photo', ''], PEX = ['jpeg', 'jpg', 'png', 'webp', 'JPG'];
+  (function () {
+    var res = [], left = MAXP;
+    function one() { if (--left === 0) PH = res.filter(Boolean); }
+    for (var n = 1; n <= MAXP; n++) (function (n) {
+      var k = 0, total = PFX.length * PEX.length;
+      (function next() {
+        if (k >= total) { one(); return; }
+        var u = 'images/' + PFX[(k / PEX.length) | 0] + n + '.' + PEX[k % PEX.length]; k++;
+        var im = new Image();
+        im.onload = function () { res[n - 1] = { u: u, w: im.naturalWidth, h: im.naturalHeight }; one(); };
+        im.onerror = next; im.src = u;
+      })();
+    })(n);
+  })();
+
+  var STEP = 520;
+  function showPhotos(done) {
+    var layer = D.getElementById('bd-photos'), n = PH.length;
+    layer.innerHTML = ''; layer.classList.remove('bd-fadeout');
+    if (!n) { done(); return; }
+    var w = fin.clientWidth, h = fin.clientHeight, cols = Math.max(1, Math.ceil(Math.sqrt(n * w / h))),
+        rows = Math.ceil(n / cols), cw = w / cols, ch = h / rows, cells = [], i, j, t;
+    for (i = 0; i < cols * rows; i++) cells.push(i);
+    for (i = cells.length - 1; i > 0; i--) { j = (Math.random() * (i + 1)) | 0; t = cells[i]; cells[i] = cells[j]; cells[j] = t; }
+    for (i = 0; i < n; i++) (function (i) {
+      var ph = PH[i], c = cells[i], sc = Math.min(cw * .9 / ph.w, ch * .9 / ph.h),
+          pw = ph.w * sc, phh = ph.h * sc,
+          x = (c % cols) * cw + (cw - pw) / 2, y = ((c / cols) | 0) * ch + (ch - phh) / 2,
+          rot = (Math.random() - .5) * 12, dx = w / 2 - (x + pw / 2), dy = h / 2 - (y + phh / 2),
+          el = D.createElement('div'), im = D.createElement('img');
+      el.className = 'bd-ph'; el.style.cssText = 'left:' + x + 'px;top:' + y + 'px;width:' + pw + 'px;height:' + phh + 'px';
+      im.src = ph.u; im.alt = ''; el.appendChild(im); layer.appendChild(el);
+      T(function () {
+        el.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.12) rotate(0deg)', opacity: 0 },
+                    { transform: 'rotate(' + rot + 'deg)', opacity: 1 }],
+                   { duration: 950, easing: 'cubic-bezier(.2,.9,.3,1.15)', fill: 'forwards' });
+      }, i * STEP);
+    })(i);
+    var total = (n - 1) * STEP + 950 + 2400;
+    T(function () { layer.classList.add('bd-fadeout'); }, total);
+    T(done, total + 1100);
+  }
+
+  gift.addEventListener('click', play);
+  blow.addEventListener('click', function () {
+    if (blow.disabled) return; blow.disabled = true; fin.classList.add('bd-out');
+    T(function () {
+      fin.classList.remove('bd-s-cake');
+      showPhotos(function () { fin.classList.add('bd-s-dark'); T(boomNow, 1300); });
+    }, 1200);
+  });
+  rep.addEventListener('click', function () {
+    TM.forEach(clearTimeout); TM = []; clearInterval(IV); aOn = false; ax.clearRect(0, 0, AW, AH); P = [];
+    fin.classList.remove('bd-run', 'bd-s-count', 'bd-s-cake', 'bd-out', 'bd-s-dark', 'bd-boom', 'bd-show');
+    var ly = D.getElementById('bd-photos'); ly.innerHTML = ''; ly.classList.remove('bd-fadeout');
+    blow.disabled = false; boomed = false;
+  });
+})();
+</script>
+</body>
+</html>
